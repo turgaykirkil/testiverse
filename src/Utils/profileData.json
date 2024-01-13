@@ -1,0 +1,36 @@
+{
+    "personalInfo": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@example.com",
+        "birthDate": "1990-01-01",
+        "gender": "Male"
+    },
+    "scoreboard": {
+        "totalQuestions": 100,
+        "correctAnswers": 80,
+        "wrongAnswers": 20,
+        "netScore": 15,
+        "highestScore": 90
+    },
+    "settings": {
+        "notification": true,
+        "theme": "Light",
+        "language": "Türkçe",
+        "account": {
+            "username": "johndoe",
+            "password": "********"
+        }
+    },
+    "appInfo": {
+        "appVersion": "1.0.0",
+        "updateInfo": "Bug fixes and improvements",
+        "licenseInfo": "Licensed under XYZ"
+    },
+    "imprint": {
+        "owner": "Your Company",
+        "contactInfo": "contact@yourcompany.com",
+        "privacyPolicy": "Link to Privacy Policy",
+        "termsOfService": "Link to Terms of Service"
+    }
+}
