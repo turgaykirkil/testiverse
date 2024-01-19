@@ -38,13 +38,13 @@ const App = () => {
           )}
           <Stack.Screen
             options={{headerShown: false}}
-            name="LoginScreen"
-            component={LoginScreen}
+            name="BottomTabs"
+            component={BottomTabs}
           />
           <Stack.Screen
             options={{headerShown: false}}
-            name="BottomTabs"
-            component={BottomTabs}
+            name="LoginScreen"
+            component={LoginScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
