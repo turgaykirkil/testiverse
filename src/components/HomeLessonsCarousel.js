@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import MainStyles from '../Utils/MainStyles';
 import * as Colors from '../Utils/Colors';
-const HomeLessonsCarousel = ({list}) => {
+const HomeLessonsCarousel = React.memo(({list}) => {
   return (
     <ScrollView>
       <View style={MainStyles.textContainer}>
@@ -37,7 +37,7 @@ const HomeLessonsCarousel = ({list}) => {
       </View>
     </ScrollView>
   );
-};
+});
 
 export default HomeLessonsCarousel;
 

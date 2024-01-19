@@ -10,10 +10,12 @@ const {width, height} = Dimensions.get('window');
 
 const OnBoardingScreen = () => {
   const navigation = useNavigation();
-  const handleDone = () => {
+  const handleDone = async () => {
+    await setItem('onboarded', '0');
+    console.log('Onboarding completed'); // Log ekleyin
     navigation.navigate('LoginScreen');
-    setItem('onboarded', '0');
   };
+
   return (
     <View style={styles.container}>
       <Onboarding

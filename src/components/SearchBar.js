@@ -3,7 +3,7 @@ import {View, TextInput, StyleSheet} from 'react-native';
 import * as Colors from '../Utils/Colors';
 import Icons from './Icon';
 
-const SearchBar = ({navigation}) => {
+const SearchBar = React.memo(({navigation}) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
@@ -27,7 +27,7 @@ const SearchBar = ({navigation}) => {
       />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
