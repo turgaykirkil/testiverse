@@ -10,42 +10,38 @@ import {
 } from 'react-native';
 import MainStyles from '../Utils/MainStyles';
 import * as Colors from '../Utils/Colors';
-const NoteCardCarousel = ({
-  list,
-  bgColor,
-  title,
-  subtitle = '',
-  onPressItem = '',
-}) => {
-  return (
-    <View style={MainStyles.textContainer}>
-      <Text style={MainStyles.mainTitle}>{title}</Text>
-      {!subtitle ? null : <Text style={MainStyles.subtitle}>{subtitle}</Text>}
-      {list ? (
-        <FlatList
-          data={list}
-          scrollEnabled={false}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => onPressItem(item)}
-              activeOpacity={0.5}>
-              <View style={[styles.card, {backgroundColor: bgColor}]}>
-                <Text>{item}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={() => <View style={{width: 10}} />}
-        />
-      ) : (
-        <Text style={MainStyles.subtitle}>
-          Henüz yarım kalan dersleriniz yok...
-        </Text>
-      )}
-    </View>
-  );
-};
+const NoteCardCarousel = React.memo(
+  ({list, bgColor, title, subtitle = '', onPressItem = ''}) => {
+    return (
+      <View style={MainStyles.textContainer}>
+        <Text style={MainStyles.mainTitle}>{title}</Text>
+        {!subtitle ? null : <Text style={MainStyles.subtitle}>{subtitle}</Text>}
+        {list ? (
+          <FlatList
+            data={list}
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => onPressItem(item)}
+                activeOpacity={0.5}>
+                <View style={[styles.card, {backgroundColor: bgColor}]}>
+                  <Text>{item}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            ListFooterComponent={() => <View style={{width: 10}} />}
+          />
+        ) : (
+          <Text style={MainStyles.subtitle}>
+            Henüz yarım kalan dersleriniz yok...
+          </Text>
+        )}
+      </View>
+    );
+  },
+);
 
 export default NoteCardCarousel;
 

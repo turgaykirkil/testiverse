@@ -5,7 +5,7 @@ import Icons from './Icon';
 import * as Colors from '../Utils/Colors';
 import {removeItem} from '../Utils/AsyncStorage';
 
-const MainHeader = ({title, onPress}) => {
+const MainHeader = React.memo(({title, onPress}) => {
   //const insets = useSafeAreaInsets();
   return (
     <View
@@ -28,7 +28,7 @@ const MainHeader = ({title, onPress}) => {
       />
     </View>
   );
-};
+});
 
 export default MainHeader;
 

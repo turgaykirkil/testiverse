@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 
-const AdBanner = () => {
+const AdBanner = React.memo(() => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>€</Text>
       {/* Buraya reklam bileşenini ekleyebilirsin */}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
