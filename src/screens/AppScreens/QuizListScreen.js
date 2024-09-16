@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
+import { getColors } from '../../styles/colors';
 
 const generateRandomColor = () => {
   const letters = '0123456789ABCDEF';
@@ -42,6 +44,8 @@ const QuizListScreen = ({route, navigation}) => {
   const {selectedList} = route.params;
   const data = generateRandomData();
   const [paddingBottom, setPaddingBottom] = useState(0);
+  const { isDarkMode } = useTheme();
+  const colors = getColors(isDarkMode);
 
   useEffect(() => {
     navigation.setOptions({
@@ -82,9 +86,9 @@ const QuizListScreen = ({route, navigation}) => {
         });
       }}>
       <View style={[styles.card, {backgroundColor: item.backgroundColor}]}>
-        <Text style={styles.text}>{item.lessonName}</Text>
-        <Text style={styles.text}>{item.departmentName}</Text>
-        <Text style={styles.text}>
+        <Text style={[styles.text, { color: colors.text }]}>{item.lessonName}</Text>
+        <Text style={[styles.text, { color: colors.text }]}>{item.departmentName}</Text>
+        <Text style={[styles.text, { color: colors.text }]}>
           {`${item.unsolvedQuestions} / ${item.totalQuestions}`}
         </Text>
       </View>
@@ -92,8 +96,8 @@ const QuizListScreen = ({route, navigation}) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={[styles.innerContainer, {paddingBottom}]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.innerContainer, {paddingBottom, backgroundColor: colors.background}]}>
         <FlatList
           data={data}
           renderItem={renderItem}
@@ -110,7 +114,6 @@ const QuizListScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   innerContainer: {
     flex: 1,
@@ -124,7 +127,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
   },
 });
 

@@ -10,6 +10,8 @@ import {
 import {data} from '../../Utils/Data';
 import * as Colors from '../../Utils/Colors';
 import LottieView from 'lottie-react-native';
+import { useTheme } from '../../context/ThemeContext';
+import { getColors } from '../../styles/colors';
 
 // ... Diğer import'lar
 
@@ -21,6 +23,9 @@ const QuizSolveScreen = ({route, navigation}) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [disableOptions, setDisableOptions] = useState(false);
   const [timer, setTimer] = useState(25 * 60); // 25 dakika
+
+  const { isDarkMode } = useTheme();
+  const colors = getColors(isDarkMode);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -153,7 +158,7 @@ const QuizSolveScreen = ({route, navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {showScore ? (
         <View style={styles.scoreContainer}>
           <LottieView

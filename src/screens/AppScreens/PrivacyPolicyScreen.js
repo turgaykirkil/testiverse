@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
+import { getColors } from '../../styles/colors';
 
 const PrivacyPolicyScreen = () => {
   const [privacyPolicyText, setPrivacyPolicyText] = useState('');
+  const { isDarkMode } = useTheme();
+  const colors = getColors(isDarkMode);
 
   useEffect(() => {
     // Metin dosyasını oku ve state'e set et
@@ -20,8 +24,8 @@ const PrivacyPolicyScreen = () => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.privacyPolicyText}>{privacyPolicyText}</Text>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.privacyPolicyText, { color: colors.text }]}>{privacyPolicyText}</Text>
     </ScrollView>
   );
 };

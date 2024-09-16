@@ -13,9 +13,13 @@ import AdBanner from '../../components/AdBanner';
 import NoteCard from '../../components/NoteCard';
 import * as Colors from '../../Utils/Colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useTheme } from '../../context/ThemeContext';
+import { getColors } from '../../styles/colors';
 
 const QuizScreen = ({navigation}) => {
   const insets = useSafeAreaInsets();
+  const { isDarkMode } = useTheme();
+  const colors = getColors(isDarkMode);
 
   const handleQuizListPress = selectedList => {
     // Burada QuizListScreen'e yönlendirme yapabilirsin
@@ -23,7 +27,7 @@ const QuizScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: colors.background }}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
@@ -31,19 +35,21 @@ const QuizScreen = ({navigation}) => {
           <View
             style={[
               MainStyles.container,
-              {paddingHorizontal: 10, paddingBottom: 90},
+              {paddingHorizontal: 10, paddingBottom: 90, backgroundColor: colors.background},
             ]}>
             <MainHeader
               title="Testiverse"
               onPress={() => {
                 navigation.navigate('Profile');
               }}
+              textColor={colors.text}
             />
             <NoteCard
               title={'Sınavlar'}
               subtitle="derslere göre alfabetik olarak sıralanmıştır"
               list={['Çözülmeyen Testler', 'Çözülen Testler']}
               bgColor={Colors.ACCENT_COLOR2}
+              textColor={colors.text}
               onPressItem={selectedItem => handleQuizListPress(selectedItem)}
             />
             <AdBanner />
@@ -52,6 +58,7 @@ const QuizScreen = ({navigation}) => {
               subtitle="derslere göre alfabetik olarak sıralanmıştır"
               list={['Derslere Göre Testler', 'Döneme Göre Testler']}
               bgColor={Colors.ACCENT_COLOR3}
+              textColor={colors.text}
               onPressItem={selectedItem => handleQuizListPress(selectedItem)}
             />
           </View>

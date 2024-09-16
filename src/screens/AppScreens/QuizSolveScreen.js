@@ -10,6 +10,8 @@ import {
 import {data} from '../../Utils/Data';
 import * as Colors from '../../Utils/Colors';
 import LottieView from 'lottie-react-native';
+import { useTheme } from '../../context/ThemeContext';
+import { getColors } from '../../styles/colors';
 
 // ... Diğer import'lar
 
@@ -21,6 +23,9 @@ const QuizSolveScreen = ({route, navigation}) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [disableOptions, setDisableOptions] = useState(false);
   const [timer, setTimer] = useState(25 * 60); // 25 dakika
+
+  const { isDarkMode } = useTheme();
+  const colors = getColors(isDarkMode);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -153,7 +158,7 @@ const QuizSolveScreen = ({route, navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {showScore ? (
         <View style={styles.scoreContainer}>
           <LottieView
@@ -165,7 +170,7 @@ const QuizSolveScreen = ({route, navigation}) => {
             autoSize
             resizeMode="contain"
           />
-          <Text style={styles.scoreText}>
+          <Text style={[styles.scoreText, { color: colors.text, borderColor: colors.border }]}>
             <Text style={styles.tableHeader}>Toplam Soru:</Text>
             <Text>{data.length}</Text> {'\n'}
             <Text style={styles.tableHeader}>Doğru Sayısı:</Text>
@@ -178,13 +183,13 @@ const QuizSolveScreen = ({route, navigation}) => {
             <Text>{formatTime(25 * 60 - timer)}</Text>
           </Text>
           <TouchableOpacity
-            style={styles.backButton}
+            style={[styles.backButton, { backgroundColor: colors.primary }]}
             onPress={handleBackToQuizList}>
-            <Text style={styles.buttonText}>Sorulara Geri Dön</Text>
+            <Text style={[styles.buttonText, { color: colors.buttonText }]}>Sorulara Geri Dön</Text>
           </TouchableOpacity>
         </View>
       ) : (
-        <SafeAreaView>
+        <SafeAreaView style={{ backgroundColor: colors.background }}>
           <View style={styles.timerContainer}>
             <LottieView
               source={require('../../assets/lottie/clock.json')}
@@ -195,12 +200,12 @@ const QuizSolveScreen = ({route, navigation}) => {
               autoSize
               resizeMode="contain"
             />
-            <Text style={styles.timerText}>{formatTime(timer)}</Text>
+            <Text style={[styles.timerText, { color: colors.text }]}>{formatTime(timer)}</Text>
           </View>
           {renderProgressBar()}
-          <View style={styles.questionContainer}>
+          <View style={[styles.questionContainer, { backgroundColor: colors.card }]}>
             <ScrollView>
-              <Text style={styles.questionText}>
+              <Text style={[styles.questionText, { color: colors.text }]}>
                 {data[currentQuestion].question}
               </Text>
               {Object.entries(data[currentQuestion].options).map(
@@ -229,6 +234,7 @@ const QuizSolveScreen = ({route, navigation}) => {
                         styles.optionContainer,
                         {
                           borderColor: optionColor,
+                          backgroundColor: colors.card,
                         },
                       ]}
                       disabled={disableOptions}>
@@ -246,14 +252,14 @@ const QuizSolveScreen = ({route, navigation}) => {
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                  style={[styles.button, styles.prevButton]}
+                  style={[styles.button, styles.prevButton, { backgroundColor: colors.accent }]}
                   onPress={handlePrevQuestion}>
-                  <Text style={styles.buttonText}>Önceki Soru</Text>
+                  <Text style={[styles.buttonText, { color: colors.buttonText }]}>Önceki Soru</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={[styles.button, styles.nextButton]}
+                  style={[styles.button, styles.nextButton, { backgroundColor: colors.primary }]}
                   onPress={handleNextQuestion}>
-                  <Text style={styles.buttonText}>Sonraki Soru</Text>
+                  <Text style={[styles.buttonText, { color: colors.buttonText }]}>Sonraki Soru</Text>
                 </TouchableOpacity>
               </View>
             </ScrollView>
@@ -267,13 +273,11 @@ const QuizSolveScreen = ({route, navigation}) => {
 // ... Diğer stil tanımlamaları
 
 export default QuizSolveScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
   },
   timerContainer: {
     flexDirection: 'row',
@@ -369,3 +373,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+

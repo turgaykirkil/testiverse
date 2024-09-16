@@ -3,7 +3,7 @@ import {
   TouchableWithoutFeedback,
   View,
   Keyboard,
-  SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import MainStyles from '../../Utils/MainStyles';
 import MainHeader from '../../components/MainHeader';
@@ -11,33 +11,49 @@ import SearchBar from '../../components/SearchBar';
 import AdBanner from '../../components/AdBanner';
 import NoteCard from '../../components/NoteCard';
 import * as Colors from '../../Utils/Colors';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '../../context/ThemeContext';
+import { getColors } from '../../styles/colors';
 
 const InfoScreen = ({navigation}) => {
-  const insets = useSafeAreaInsets();
+  const { isDarkMode } = useTheme();
+  const colors = getColors(isDarkMode);
+
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View
-        style={[
-          MainStyles.container,
-          {paddingHorizontal: 10, paddingBottom: 90, marginTop: insets.top},
-        ]}>
-        <MainHeader
-          title="Testiverse"
-          onPress={() => {
-            navigation.navigate('Profile');
-          }}
-        />
-        <SearchBar />
-        <AdBanner />
-        <NoteCard
-          title={'Bilgiler'}
-          list={['Bölüm hakkında bilgiler', 'Okul hakkında bilgiler']}
-          bgColor={Colors.ACCENT_COLOR3}
-          onPressItem={item => {}}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <StatusBar
+        backgroundColor={colors.background}
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+      />
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View
+          style={[
+            MainStyles.container,
+            {
+              paddingHorizontal: 10,
+              paddingBottom: 90,
+              backgroundColor: colors.background
+            },
+          ]}>
+          <MainHeader
+            title="Testiverse"
+            onPress={() => {
+              navigation.navigate('Profile');
+            }}
+            textColor={colors.text}
+          />
+          <SearchBar backgroundColor={colors.card} textColor={colors.text} />
+          <AdBanner />
+          <NoteCard
+            title={'Bilgiler'}
+            list={['Bölüm hakkında bilgiler', 'Okul hakkında bilgiler']}
+            bgColor={Colors.ACCENT_COLOR3}
+            textColor={colors.text}
+            onPressItem={item => {}}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 
