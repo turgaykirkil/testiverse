@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Platform,
+  StatusBar, // StatusBar'ı import ediyoruz
 } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { getColors } from '../../styles/colors';
@@ -50,8 +51,12 @@ const QuizListScreen = ({route, navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: selectedList, // Burada istediğin başlık olabilir
+      headerStyle: {
+        backgroundColor: colors.background,
+      },
+      headerTintColor: colors.text,
     });
-  }, [navigation, selectedList]);
+  }, [navigation, selectedList, colors]);
 
   const handleScroll = event => {
     const scrollPosition = event.nativeEvent.contentOffset.y;
@@ -97,6 +102,10 @@ const QuizListScreen = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <StatusBar
+        backgroundColor={colors.background}
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+      />
       <View style={[styles.innerContainer, {paddingBottom, backgroundColor: colors.background}]}>
         <FlatList
           data={data}

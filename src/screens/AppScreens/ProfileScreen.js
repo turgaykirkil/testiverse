@@ -247,7 +247,7 @@ const ProfileScreen = () => {
             textColor={colors.text}
           />
         </Section>
-
+        
         <TouchableOpacity
           style={[styles.logoutButton, { backgroundColor: colors.error }]}
           onPress={() => console.log('Çıkış Yap')}>
@@ -336,6 +336,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   logoutButton: {
+    backgroundColor: 'red',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
