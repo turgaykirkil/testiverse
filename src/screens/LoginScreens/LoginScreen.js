@@ -10,6 +10,8 @@ import {
   Keyboard,
 } from 'react-native';
 import {FontAwesome, AntDesign} from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext'; // ThemeContext'i import edin
+import { getColors } from '../../styles/colors'; // getColors fonksiyonunu import edin
 
 // Renk Bilgileri
 import {
@@ -25,6 +27,8 @@ const AuthScreen = ({navigation}) => {
   const [activeScreen, setActiveScreen] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { isDarkMode } = useTheme(); // isDarkMode'u ThemeContext'ten alın
+  const colors = getColors(isDarkMode); // Renkleri alın
 
   const handleLogin = () => {
     console.log('Login:', email, password);
@@ -47,25 +51,25 @@ const AuthScreen = ({navigation}) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={[styles.container, {backgroundColor: '#fff'}]}>
+      <View style={[styles.container, {backgroundColor: colors.background}]}>
         <Image
           source={require('../../assets/logo.png')} // Logo için uygun bir dosya yolu belirt
           style={styles.logo}
         />
         {activeScreen === 'login' && (
           <View style={styles.formContainer}>
-            <Text style={styles.title}>Giriş Yap</Text>
+            <Text style={[styles.title, {color: colors.text}]}>Giriş Yap</Text>
             <TextInput
-              style={[styles.input, {borderColor: SOFT_RANDOM_COLOR1}]}
+              style={[styles.input, {borderColor: SOFT_RANDOM_COLOR1, color: colors.text}]}
               placeholder="E-mail"
-              placeholderTextColor={SOFT_RANDOM_COLOR1}
+              placeholderTextColor={colors.placeholder}
               value={email}
               onChangeText={setEmail}
             />
             <TextInput
-              style={[styles.input, {borderColor: SOFT_RANDOM_COLOR2}]}
+              style={[styles.input, {borderColor: SOFT_RANDOM_COLOR2, color: colors.text}]}
               placeholder="Şifre"
-              placeholderTextColor={SOFT_RANDOM_COLOR2}
+              placeholderTextColor={colors.placeholder}
               secureTextEntry
               value={password}
               onChangeText={setPassword}
@@ -83,7 +87,7 @@ const AuthScreen = ({navigation}) => {
             <TouchableOpacity
               onPress={handleForgotPassword}
               style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Şifremi Unuttum</Text>
+              <Text style={[styles.forgotPasswordText, {color: colors.text}]}>Şifremi Unuttum</Text>
             </TouchableOpacity>
             <View style={styles.socialLoginContainer}>
               <TouchableOpacity
